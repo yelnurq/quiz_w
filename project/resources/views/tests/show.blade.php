@@ -93,7 +93,6 @@
     const totalSteps = {{ $questions->count() }};
 
     function changeStep(current, next) {
-        // Проверка: выбран ли ответ перед переходом вперед
         if (next > current) {
             const currentInputs = document.querySelectorAll(`#step-${current} input[type="radio"]`);
             let answered = false;
