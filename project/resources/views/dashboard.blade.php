@@ -10,7 +10,6 @@
             </h1>
             <p class="mt-2 text-lg text-gray-600 font-medium">Готов покорять мир технологий сегодня?</p>
         </div>
-        
         @if(auth()->user()->role === 'admin')
             <div class="flex gap-3 mt-4 md:mt-0">
                 <a href="{{ route('admin.quizzes') }}" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-purple-200 transition-all hover:-translate-y-1 flex items-center gap-2">
