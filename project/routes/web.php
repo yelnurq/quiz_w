@@ -93,7 +93,6 @@ Route::post('/tests/{id}/submit', function (Request $request, $id) {
         }
     }
 
-    // Здесь можно сохранить результат в базу данных, если есть таблица результатов
     // А пока просто вернем на страницу с результатом
     return back()->with('test_result', "Ты ответил правильно на $score из $total вопросов!");
 })->name('tests.submit');
