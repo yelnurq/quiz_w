@@ -81,7 +81,6 @@ Route::get('/tests/{id}', function ($id) {
     return view('tests.show', compact('quiz', 'questions'));
 })->name('tests.show');
 
-// Обработка результатов теста (куда отправляются ответы)
 Route::post('/tests/{id}/submit', function (Request $request, $id) {
     $questions = DB::table('questions')->where('quiz_id', $id)->get();
     $score = 0;
