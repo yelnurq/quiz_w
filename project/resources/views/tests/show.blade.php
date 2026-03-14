@@ -109,7 +109,6 @@
         // Показываем следующий
         document.getElementById(`step-${next}`).classList.remove('hidden');
 
-        // Обновляем текст и прогресс-бар
         document.getElementById('current-step-text').innerText = next;
         const progress = (next / totalSteps) * 100;
         document.getElementById('progress-bar').style.width = progress + '%';
