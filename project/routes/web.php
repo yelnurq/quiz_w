@@ -99,7 +99,7 @@ Route::post('/tests/{id}/submit', function (Request $request, $id) {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/', function () {
-    $quizzes = DB::table('quizzes')->get(); // Получаем твои созданные тесты
+    $quizzes = DB::table('quizzes')->get(); 
     return view('dashboard', compact('quizzes'));
 })->name('dashboard');
 });
