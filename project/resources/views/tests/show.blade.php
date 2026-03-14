@@ -111,7 +111,6 @@
         const progress = (next / totalSteps) * 100;
         document.getElementById('progress-bar').style.width = progress + '%';
         
-        // Скролл наверх для удобства
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
