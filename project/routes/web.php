@@ -62,7 +62,6 @@ Route::get('/admin/users', function () {
         abort(403, 'Доступ только для администраторов');
     }
 
-    // Получаем всех пользователей из базы
     $users = User::latest()->get();
 
     return view('admin.users', compact('users'));
