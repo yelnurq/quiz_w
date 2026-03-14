@@ -104,7 +104,6 @@
             }
         }
 
-        // Скрываем текущий шаг
         document.getElementById(`step-${current}`).classList.add('hidden');
         // Показываем следующий
         document.getElementById(`step-${next}`).classList.remove('hidden');
