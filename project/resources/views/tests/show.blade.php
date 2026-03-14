@@ -126,7 +126,6 @@
         from { opacity: 0; transform: translateX(20px); }
         to { opacity: 1; transform: translateX(0); }
     }
-
     .animate-fade-in {
         animation: fadeIn 0.6s ease-out;
     }
