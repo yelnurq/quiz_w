@@ -22,7 +22,6 @@
             </div>
         @endif
     </div>
-
     <div class="w-full">
         <div class="flex justify-center mb-10">
             <div class="bg-white/50 backdrop-blur-sm p-2 rounded-[2rem] border border-white shadow-inner flex gap-2">
