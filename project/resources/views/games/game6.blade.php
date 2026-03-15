@@ -10,7 +10,6 @@
             Верно: <span id="score">0</span>
         </div>
     </div>
-
     <div id="game-card" class="bg-white rounded-[3rem] p-10 shadow-2xl border-4 border-white text-center relative overflow-hidden">
         <div id="timer-bar" class="absolute top-0 left-0 h-2 bg-blue-500 transition-all linear" style="width: 100%"></div>
         
