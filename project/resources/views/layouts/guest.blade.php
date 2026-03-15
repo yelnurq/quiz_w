@@ -13,7 +13,6 @@
             overflow: hidden; /* Чтобы декоративные круги не создавали скролл */
         }
 
-        /* Анимированные пузыри на фоне */
         .bubble {
             position: absolute;
             border-radius: 50%;
