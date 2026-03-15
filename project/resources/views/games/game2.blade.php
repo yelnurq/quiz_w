@@ -236,7 +236,6 @@
         btn.innerHTML = '<span>⏳ ГЕНЕРАЦИЯ...</span>';
         btn.disabled = true;
 
-        // "Проявляем" блок для библиотеки
         element.style.display = 'block';
         element.style.position = 'fixed';
         element.style.left = '0';
