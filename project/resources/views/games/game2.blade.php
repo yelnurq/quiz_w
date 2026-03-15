@@ -228,7 +228,6 @@
         document.getElementById('modal').classList.add('hidden');
         document.getElementById('certificate-overlay').classList.remove('hidden');
     }
-
     function downloadPDF() {
         const element = document.getElementById('cert-to-print');
         const btn = document.getElementById('pdf-btn');
