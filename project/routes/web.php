@@ -77,7 +77,6 @@ Route::get('/tests/{id}', function ($id) {
         abort(404);
     }
 
-    // Получаем вопросы к этому тесту
     $questions = DB::table('questions')->where('quiz_id', $id)->get();
 
     return view('tests.show', compact('quiz', 'questions'));
