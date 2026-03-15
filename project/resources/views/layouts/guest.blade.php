@@ -35,7 +35,6 @@
 
     <div class="max-w-md w-full">
      
-
         <div class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-2xl shadow-blue-900/10 border border-white p-10 relative overflow-hidden">
             
             <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-100">
