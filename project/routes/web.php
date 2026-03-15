@@ -69,7 +69,6 @@ Route::get('/admin/users', function () {
 })->name('admin.users')->middleware('auth');
 
 
-// Страница прохождения теста для ученика
 Route::get('/tests/{id}', function ($id) {
     // Получаем тест
     $quiz = DB::table('quizzes')->where('id', $id)->first();
