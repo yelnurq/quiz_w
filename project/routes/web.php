@@ -15,3 +15,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/', function () { return view('dashboard'); })->name('dashboard');
 });
+
+Route::get('/game1', function () {
+    return view('game1');
+})->middleware(['auth'])->name('game');
