@@ -31,14 +31,14 @@
                 <h3 class="text-2xl font-black text-gray-900 mb-2">IT-Ребус</h3>
                 <p class="text-gray-500 text-sm font-medium mb-6">Угадай секретные слова из мира компьютеров и стань настоящим знатоком!</p>
                 <div class="mt-auto">
-                    <a href="{{ route('game') }}" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-2xl transition shadow-lg shadow-blue-100 uppercase tracking-wider text-sm">
+                    <a href="{{ route('game1') }}" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-2xl transition shadow-lg shadow-blue-100 uppercase tracking-wider text-sm">
                         Начать игру
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-yellow-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
+<div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-yellow-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
             <div class="h-48 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center relative overflow-hidden">
                 <span class="text-7xl group-hover:rotate-12 transition-transform duration-500">🤖</span>
                 <div class="absolute bottom-4 left-4">
@@ -74,12 +74,22 @@
             </div>
         </div>
 
-        <div class="group bg-gray-200/50 rounded-3xl border-2 border-dashed border-gray-300 overflow-hidden flex flex-col items-center justify-center p-8 text-center">
-            <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mb-4">
-                <span class="text-4xl grayscale opacity-50">🚀</span>
+        <div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-purple-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
+            <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center relative overflow-hidden">
+                <span class="text-7xl group-hover:scale-110 transition-transform duration-500">🛠️</span>
+                <div class="absolute bottom-4 left-4">
+                    <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-xs font-black rounded-full uppercase tracking-widest text-[10px]">Информатика</span>
+                </div>
             </div>
-            <h3 class="text-xl font-bold text-gray-400">Новые знания</h3>
-            <p class="text-gray-400 text-xs mt-2 uppercase font-black tracking-widest">Скоро в школе...</p>
+            <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-2xl font-black text-gray-900 mb-2">Мастер ПК</h3>
+                <p class="text-gray-500 text-sm font-medium mb-6">Собери свой мощный компьютер, правильно соединив все детали!</p>
+                <div class="mt-auto">
+                    <a href="{{ route('game2') }}" class="block text-center bg-purple-600 hover:bg-purple-700 text-white font-black py-4 rounded-2xl transition shadow-lg shadow-purple-100 uppercase tracking-wider text-sm">
+                        Собрать ПК
+                    </a>
+                </div>
+            </div>
         </div>
 
     </div>

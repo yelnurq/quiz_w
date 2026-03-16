@@ -16,6 +16,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () { return view('dashboard'); })->name('dashboard');
 });
 
+Route::get('/game2', function () {
+    return view('games/game2');
+})->middleware(['auth'])->name('game2');
+
 Route::get('/game1', function () {
-    return view('game1');
-})->middleware(['auth'])->name('game');
+    return view('games/game1');
+})->middleware(['auth'])->name('game1');
