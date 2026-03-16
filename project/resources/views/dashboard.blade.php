@@ -1,81 +1,85 @@
 @extends('layouts.app')
 
-@section('title', 'Панель управления | Обучающие игры')
+@section('title', 'Главная | IT-Знайка')
 
 @section('content')
-    <div class="mb-8 flex justify-between items-end">
-        <div>
-            <h1 class="text-3xl font-extrabold text-gray-900">Обучающие JS-игры</h1>
-            <p class="mt-2 text-gray-600">Интерактивные платформы для глубокого погружения в программирование.</p>
+    <div class="mb-10 flex flex-col md:flex-row justify-between items-center bg-white/40 backdrop-blur-md p-8 rounded-3xl border border-white shadow-xl">
+        <div class="text-center md:text-left">
+            <h1 class="text-4xl font-black text-gray-900 leading-tight">
+                Привет, {{ explode(' ', auth()->user()->name)[0] }}! 👋
+            </h1>
+            <p class="mt-2 text-lg text-gray-600 font-medium">Готов покорять мир технологий сегодня?</p>
         </div>
         
         @if(auth()->user()->role === 'admin')
-            <a href="#" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-bold shadow-sm transition">
-                + Добавить ресурс
+            <a href="#" class="mt-4 md:mt-0 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-green-200 transition-all hover:-translate-y-1 active:translate-y-0 flex items-center gap-2">
+                <span>➕ Новый урок</span>
             </a>
         @endif
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition flex flex-col">
-            <div class="p-6 flex-1">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-bold rounded-full uppercase">Логика</span>
-                    <span class="text-gray-400 text-sm">Open Source</span>
+        <div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-blue-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
+            <div class="h-48 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center relative overflow-hidden">
+                <span class="text-7xl group-hover:scale-110 transition-transform duration-500">🧩</span>
+                <div class="absolute bottom-4 left-4">
+                    <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-xs font-black rounded-full uppercase tracking-widest text-[10px]">Твоя игра</span>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">JSRobot</h3>
-                <p class="text-gray-600 text-sm mb-6">Управляйте роботом, изучая основы синтаксиса, циклы и функции JavaScript в игровой форме.</p>
-                <a href="https://lab.reaal.me/jsrobot/" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition">Играть</a>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-2xl font-black text-gray-900 mb-2">IT-Ребус</h3>
+                <p class="text-gray-500 text-sm font-medium mb-6">Угадай секретные слова из мира компьютеров и стань настоящим знатоком!</p>
+                <div class="mt-auto">
+                    <a href="{{ route('game') }}" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-2xl transition shadow-lg shadow-blue-100 uppercase tracking-wider text-sm">
+                        Начать игру
+                    </a>
+                </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition flex flex-col">
-            <div class="p-6 flex-1">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full uppercase">Алгоритмы</span>
-                    <span class="text-gray-400 text-sm">Hard</span>
+        <div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-yellow-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
+            <div class="h-48 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center relative overflow-hidden">
+                <span class="text-7xl group-hover:rotate-12 transition-transform duration-500">🤖</span>
+                <div class="absolute bottom-4 left-4">
+                    <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-xs font-black rounded-full uppercase tracking-widest text-[10px]">Логика</span>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Elevator Saga</h3>
-                <p class="text-gray-600 text-sm mb-6">Ваша задача — программировать движение лифтов на JS, чтобы максимально эффективно перевозить пассажиров.</p>
-                <a href="http://play.elevatorsaga.com/" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition">Играть</a>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-2xl font-black text-gray-900 mb-2">Приключения Робота</h3>
+                <p class="text-gray-500 text-sm font-medium mb-6">Командуй роботом и помоги ему пройти все лабиринты с помощью кода.</p>
+                <div class="mt-auto">
+                    <a href="https://lab.reaal.me/jsrobot/" target="_blank" class="block text-center bg-gray-900 hover:bg-black text-white font-black py-4 rounded-2xl transition shadow-lg uppercase tracking-wider text-sm">
+                        В путь!
+                    </a>
+                </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition flex flex-col">
-            <div class="p-6 flex-1">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="px-3 py-1 bg-purple-100 text-purple-800 text-xs font-bold rounded-full uppercase">MMO RTS</span>
-                    <span class="text-gray-400 text-sm">Professional</span>
+        <div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-teal-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
+            <div class="h-48 bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center relative overflow-hidden">
+                <span class="text-7xl group-hover:-translate-y-4 transition-transform duration-700">🛗</span>
+                <div class="absolute bottom-4 left-4">
+                    <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-xs font-black rounded-full uppercase tracking-widest text-[10px]">Алгоритмы</span>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Screeps</h3>
-                <p class="text-gray-600 text-sm mb-6">Полноценная стратегия, где вы пишете код для своей колонии юнитов, который работает 24/7.</p>
-                <a href="https://screeps.com/" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition">Открыть сайт</a>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-2xl font-black text-gray-900 mb-2">Мастер Лифтов</h3>
+                <p class="text-gray-500 text-sm font-medium mb-6">Научись управлять целым зданием! Помоги всем жителям доехать вовремя.</p>
+                <div class="mt-auto">
+                    <a href="http://play.elevatorsaga.com/" target="_blank" class="block text-center bg-teal-600 hover:bg-teal-700 text-white font-black py-4 rounded-2xl transition shadow-lg shadow-teal-100 uppercase tracking-wider text-sm">
+                        Запустить лифт
+                    </a>
+                </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition flex flex-col">
-            <div class="p-6 flex-1">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-bold rounded-full uppercase">AI</span>
-                    <span class="text-gray-400 text-sm">CLI Based</span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">WarriorJS</h3>
-                <p class="text-gray-600 text-sm mb-6">Проведите своего воина через башни, используя JavaScript для принятия решений в реальном времени.</p>
-                <a href="https://warriorjs.com/" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition">Играть</a>
+        <div class="group bg-gray-200/50 rounded-3xl border-2 border-dashed border-gray-300 overflow-hidden flex flex-col items-center justify-center p-8 text-center">
+            <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mb-4">
+                <span class="text-4xl grayscale opacity-50">🚀</span>
             </div>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition flex flex-col">
-            <div class="p-6 flex-1">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="px-3 py-1 bg-red-100 text-red-800 text-xs font-bold rounded-full uppercase">Hacking</span>
-                    <span class="text-gray-400 text-sm">Medium</span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Untrusted</h3>
-                <p class="text-gray-600 text-sm mb-6">Мета-игра, в которой вы должны буквально изменять исходный код самой игры, чтобы пройти дальше.</p>
-                <a href="https://alexnisnevich.github.io/untrusted/" target="_blank" class="block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition">Играть</a>
-            </div>
+            <h3 class="text-xl font-bold text-gray-400">Новые знания</h3>
+            <p class="text-gray-400 text-xs mt-2 uppercase font-black tracking-widest">Скоро в школе...</p>
         </div>
 
     </div>
