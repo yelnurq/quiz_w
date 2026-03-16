@@ -38,7 +38,7 @@
             </div>
         </div>
 
-<div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-yellow-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
+        <div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-yellow-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
             <div class="h-48 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center relative overflow-hidden">
                 <span class="text-7xl group-hover:rotate-12 transition-transform duration-500">🤖</span>
                 <div class="absolute bottom-4 left-4">
@@ -55,7 +55,41 @@
                 </div>
             </div>
         </div>
+<div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-red-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
+            <div class="h-48 bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center relative overflow-hidden">
+                <span class="text-7xl group-hover:scale-125 transition-transform duration-500">🛡️</span>
+                <div class="absolute bottom-4 left-4">
+                    <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-xs font-black rounded-full uppercase tracking-widest text-[10px]">Безопасность</span>
+                </div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-2xl font-black text-gray-900 mb-2">Кибер Патруль</h3>
+                <p class="text-gray-500 text-sm font-medium mb-6">Защити интернет от вирусов и хакеров. Стань героем цифровой безопасности!</p>
+                <div class="mt-auto">
+                    <a href="{{ route('game3') }}" class="block text-center bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl transition shadow-lg shadow-red-100 uppercase tracking-wider text-sm">
+                        Начать патруль
+                    </a>
+                </div>
+            </div>
+        </div>
 
+        <div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-indigo-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
+            <div class="h-48 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center relative overflow-hidden">
+                <span class="text-7xl group-hover:rotate-12 transition-transform duration-500">🚜</span>
+                <div class="absolute bottom-4 left-4">
+                    <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-xs font-black rounded-full uppercase tracking-widest text-[10px]">Кодинг</span>
+                </div>
+            </div>
+            <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-2xl font-black text-gray-900 mb-2">Битва Танков</h3>
+                <p class="text-gray-500 text-sm font-medium mb-6">Программируй алгоритмы движений своего танка и поражай все цели на поле!</p>
+                <div class="mt-auto">
+                    <a href="{{ route('game4') }}" class="block text-center bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 rounded-2xl transition shadow-lg shadow-indigo-100 uppercase tracking-wider text-sm">
+                        В бой!
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-teal-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
             <div class="h-48 bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center relative overflow-hidden">
                 <span class="text-7xl group-hover:-translate-y-4 transition-transform duration-700">🛗</span>

@@ -32,3 +32,7 @@ Route::get('/game3', function () {
 Route::get('/game4', function () {
     return view('games/game4');
 })->middleware(['auth'])->name('game4');
+
+Route::get('/game5', function () {
+    return view('games/game5');
+})->middleware(['auth'])->name('game5');
