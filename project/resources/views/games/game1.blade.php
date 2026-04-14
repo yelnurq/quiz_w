@@ -11,17 +11,25 @@
         border: 15px solid #1e3a8a;
         outline: 2px solid #1e3a8a;
         outline-offset: -20px;
+        box-sizing: border-box;
     }
-    /* Стили для PDF-генератора */
-    .pdf-container {
-        width: 1120px; /* Стандарт для A4 Landscape */
+
+    /* Специальный контейнер для PDF, чтобы он всегда был правильного размера при генерации */
+    #cert-to-print {
+        width: 1120px; /* Ширина для A4 Landscape */
         height: 790px;
         background: white;
         margin: 0;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        padding: 0;
+        display: none; /* Скрыт на странице, виден только для библиотеки */
+    }
+
+    /* Адаптивный предпросмотр на экране */
+    .cert-preview-container {
+        background: white;
+        width: 100%;
+        max-width: 900px;
+        position: relative;
     }
 </style>
 
@@ -45,6 +53,7 @@
             <h2 class="text-3xl font-black uppercase tracking-tighter">IT-Ребус</h2>
             <p class="mt-1 opacity-90 font-medium">Сможешь угадать слово без ошибок?</p>
         </div>
+
         <div class="p-8 md:p-12">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
                 <div class="bg-white px-8 py-4 rounded-3xl shadow-inner border border-gray-100 w-full md:w-auto text-center">
@@ -58,8 +67,10 @@
                     <p id="hint" class="leading-tight">...</p>
                 </div>
             </div>
+
             <div id="word-display" class="flex flex-wrap justify-center gap-4 mb-16 text-4xl md:text-6xl font-black text-blue-900 drop-shadow-sm min-h-[80px]"></div>
             <div id="keyboard" class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-11 gap-2 md:gap-3 mb-12"></div>
+
             <div class="flex justify-center border-t border-gray-100 pt-10">
                 <button onclick="initGame()" class="bg-gray-900 hover:bg-blue-600 text-white px-12 py-5 rounded-2xl font-black transition-all shadow-xl hover:-translate-y-1 active:scale-95 flex items-center gap-3 uppercase tracking-widest text-sm">Новое слово</button>
             </div>
@@ -72,45 +83,63 @@
         <div id="modal-icon" class="text-8xl mb-6"></div>
         <h3 id="modal-title" class="text-4xl font-black mb-3"></h3>
         <p id="modal-msg" class="text-gray-500 text-lg mb-10 leading-relaxed"></p>
-        <button onclick="initGame()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-5 rounded-2xl font-black shadow-lg shadow-blue-200 transition-all active:scale-95 uppercase tracking-widest text-sm">Играть ещё!</button>
+        <button onclick="initGame()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-5 rounded-2xl font-black shadow-lg transition-all active:scale-95 uppercase tracking-widest text-sm">Играть ещё!</button>
     </div>
 </div>
 
-<div id="certificate-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 z-[60]">
-    <div class="bg-white p-4 rounded-xl shadow-2xl max-w-5xl w-full relative">
-        <button onclick="document.getElementById('certificate-overlay').classList.add('hidden')" class="absolute -top-12 right-0 text-white hover:text-blue-300 transition-colors font-bold uppercase tracking-widest text-sm">✕ Закрыть</button>
-
-        <div id="cert-to-print" class="bg-white">
-            <div class="cert-border p-16 text-center relative overflow-hidden bg-white" style="min-height: 600px;">
-                <div class="absolute top-0 left-0 w-32 h-32 bg-blue-600 -translate-x-16 -translate-y-16 rotate-45"></div>
-                <div class="relative z-10">
-                    <h1 class="text-blue-900 text-6xl font-black mb-4 uppercase tracking-tighter">Сертификат</h1>
-                    <p class="text-gray-500 text-2xl font-medium mb-12 italic">Настоящим подтверждается, что</p>
-                    <div class="mb-10">
-                        <h2 id="cert-user-name" class="text-5xl font-black text-gray-900 border-b-8 border-blue-600 inline-block px-12 pb-2 uppercase italic">
-                            {{ auth()->user()->name }}
-                        </h2>
-                    </div>
-                    <p class="text-gray-700 text-2xl leading-relaxed max-w-2xl mx-auto mb-16 font-medium">
-                        Успешно прошел испытание в игре <span class="font-bold text-blue-600">"IT-Ребус"</span>, 
-                        проявив выдающуюся смекалку и знание основ информационных технологий.
-                    </p>
-                    <div class="flex justify-between items-end mt-20 px-10">
-                        <div class="text-left">
-                            <div class="w-48 border-b-2 border-gray-300 mb-2"></div>
-                            <p class="text-sm text-gray-400 font-bold uppercase tracking-widest">Дата выдачи</p>
-                            <p class="text-gray-900 text-xl font-bold">{{ date('d.m.Y') }}</p>
-                        </div>
-                        <div class="bg-blue-600 text-white p-6 rounded-full font-black text-2xl w-32 h-32 flex items-center justify-center rotate-12 shadow-lg border-4 border-white">IT-OK</div>
-                    </div>
+<div id="certificate-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden flex flex-col items-center justify-center p-4 z-[60]">
+    <div class="cert-preview-container rounded-lg shadow-2xl overflow-hidden mb-6">
+        <div class="cert-border p-8 md:p-16 text-center bg-white relative">
+            <div class="absolute top-0 left-0 w-32 h-32 bg-blue-600 -translate-x-16 -translate-y-16 rotate-45"></div>
+            <h1 class="text-blue-900 text-4xl md:text-6xl font-black mb-4 uppercase">Сертификат</h1>
+            <p class="text-gray-500 text-lg italic mb-8">Настоящим подтверждается, что</p>
+            <h2 class="text-3xl md:text-5xl font-black text-gray-900 border-b-4 border-blue-600 inline-block px-8 pb-2 mb-8 uppercase italic">
+                {{ auth()->user()->name }}
+            </h2>
+            <p class="text-gray-700 text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+                Успешно прошел испытание в игре <span class="font-bold text-blue-600">"IT-Ребус"</span>, проявив выдающуюся смекалку и знание ИТ.
+            </p>
+            <div class="flex justify-between items-end px-10">
+                <div class="text-left text-sm">
+                    <p class="text-gray-400 font-bold uppercase tracking-widest">Дата</p>
+                    <p class="text-gray-900 font-bold">{{ date('d.m.Y') }}</p>
                 </div>
+                <div class="bg-blue-600 text-white p-4 rounded-full font-black text-lg w-20 h-20 flex items-center justify-center rotate-12 border-4 border-white">IT-OK</div>
             </div>
         </div>
+    </div>
+    
+    <div class="flex gap-4">
+        <button onclick="downloadPDF()" class="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-2xl font-black shadow-xl flex items-center gap-3 transition-all active:scale-95">
+            <span>⬇️ СКАЧАТЬ PDF</span>
+        </button>
+        <button onclick="document.getElementById('certificate-overlay').classList.add('hidden')" class="bg-white/20 hover:bg-white/30 text-white px-10 py-4 rounded-2xl font-bold transition-all">
+            Закрыть
+        </button>
+    </div>
+</div>
 
-        <div class="mt-6 flex justify-center gap-4">
-            <button onclick="downloadPDF()" class="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-2xl font-black transition-all flex items-center gap-3 shadow-lg uppercase tracking-widest text-sm">
-                ⬇️ Скачать PDF
-            </button>
+<div id="cert-to-print">
+    <div class="cert-border p-20 text-center bg-white relative h-full flex flex-col justify-center items-center" style="height: 790px;">
+        <div class="absolute top-0 left-0 w-48 h-48 bg-blue-600 -translate-x-24 -translate-y-24 rotate-45"></div>
+        <h1 class="text-blue-900 text-8xl font-black mb-6 uppercase tracking-tighter">Сертификат</h1>
+        <p class="text-gray-400 text-3xl font-medium mb-12 italic">Настоящим подтверждается, что</p>
+        <div class="mb-12">
+            <h2 class="text-7xl font-black text-gray-900 border-b-8 border-blue-600 inline-block px-12 pb-4 uppercase italic">
+                {{ auth()->user()->name }}
+            </h2>
+        </div>
+        <p class="text-gray-700 text-3xl leading-relaxed max-w-4xl mx-auto mb-16">
+            Успешно прошел испытание в игре <span class="font-bold text-blue-600">"IT-Ребус"</span>, 
+            проявив выдающуюся смекалку и знание основ информационных технологий.
+        </p>
+        <div class="flex justify-between items-end w-full px-20 mt-10">
+            <div class="text-left">
+                <div class="w-64 border-b-4 border-gray-200 mb-4"></div>
+                <p class="text-2xl text-gray-400 font-bold uppercase tracking-widest">Дата выдачи</p>
+                <p class="text-gray-900 text-4xl font-black">{{ date('d.m.Y') }}</p>
+            </div>
+            <div class="bg-blue-600 text-white p-12 rounded-full font-black text-4xl w-40 h-40 flex items-center justify-center rotate-12 shadow-2xl border-8 border-white">IT-OK</div>
         </div>
     </div>
 </div>
@@ -131,9 +160,7 @@
         { word: 'КУРСОР', hint: 'Стрелочка, которая бегает по экрану' }
     ];
 
-    let selectedWord = "";
-    let guessedLetters = [];
-    let mistakes = 0;
+    let selectedWord = "", guessedLetters = [], mistakes = 0;
     const maxMistakes = 6;
 
     function initGame() {
@@ -211,18 +238,23 @@
 
     function downloadPDF() {
         const element = document.getElementById('cert-to-print');
-        const options = {
-            margin: 0,
-            filename: `IT-Cert-{{ auth()->user()->id }}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, logging: false, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' } // АВТОМАТИЧЕСКИЙ ГОРИЗОНТАЛЬНЫЙ РЕЖИМ
+        element.style.display = 'block'; // Временно показываем для библиотеки
+        
+        const opt = {
+            margin:       0,
+            filename:     'IT_Rebus_Certificate.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, logging: false, useCORS: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
 
-        // Запускаем сохранение
-        html2pdf().set(options).from(element).save();
+        // Запуск генерации
+        html2pdf().set(opt).from(element).save().then(() => {
+            element.style.display = 'none'; // Скрываем обратно
+        });
     }
 
+    // Слушатель клавиатуры
     document.addEventListener('keydown', (e) => {
         let key = e.key.toUpperCase();
         const enToRu = { "Q":"Й","W":"Ц","E":"У","R":"К","T":"Е","Y":"Н","U":"Г","I":"Ш","O":"Щ","P":"З","[":"Х","]":"Ъ","A":"Ф","S":"Ы","D":"В","F":"А","G":"П","H":"Р","J":"О","K":"Л","L":"Д",";":"Ж","'":"Э","Z":"Я","X":"Ч","C":"С","V":"М","B":"И","N":"Т","M":"Ь",",":"Б",".":"Ю" };
