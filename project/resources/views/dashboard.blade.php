@@ -16,27 +16,32 @@
                 <a href="{{ route('admin.quizzes') }}" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-purple-200 transition-all hover:-translate-y-1 flex items-center gap-2">
                     <span>⚙️ Управление тестами</span>
                 </a>
+                <a href="{{ route('admin.users') }}" class="bg-yellow-600 hover:bg-purple-700 text-white px-6 py-3 rounded-2xl font-bold shadow-lg shadow-purple-200 transition-all hover:-translate-y-1 flex items-center gap-2">
+                    <span>⚙️ Управление пользователями</span>
+                </a>
             </div>
         @endif
     </div>
 
-    <div x-data="{ tab: 'games' }" class="w-full">
+    <div class="w-full">
         <div class="flex justify-center mb-10">
             <div class="bg-white/50 backdrop-blur-sm p-2 rounded-[2rem] border border-white shadow-inner flex gap-2">
-                <button @click="tab = 'games'" 
-                        :class="tab === 'games' ? 'bg-blue-600 text-white shadow-lg' : 'text-gray-500 hover:bg-white'" 
-                        class="px-8 py-3 rounded-[1.5rem] font-black uppercase tracking-widest text-xs transition-all">
+                <button type="button" 
+                        id="btn-games"
+                        onclick="switchTab('games')"
+                        class="px-8 py-3 rounded-[1.5rem] font-black uppercase tracking-widest text-xs transition-all duration-300 bg-blue-600 text-white shadow-lg">
                     🎮 Мини-игры
                 </button>
-                <button @click="tab = 'quizzes'" 
-                        :class="tab === 'quizzes' ? 'bg-indigo-600 text-white shadow-lg' : 'text-gray-500 hover:bg-white'" 
-                        class="px-8 py-3 rounded-[1.5rem] font-black uppercase tracking-widest text-xs transition-all">
+                <button type="button" 
+                        id="btn-quizzes"
+                        onclick="switchTab('quizzes')"
+                        class="px-8 py-3 rounded-[1.5rem] font-black uppercase tracking-widest text-xs transition-all duration-300 text-gray-500 hover:bg-white">
                     📝 Тесты ({{ $quizzes->count() }})
                 </button>
             </div>
         </div>
 
-        <div x-show="tab === 'games'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
+        <div id="content-games" class="tab-content transition-all duration-300">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
                 <div class="group bg-white rounded-3xl shadow-sm border-2 border-transparent hover:border-blue-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
@@ -150,7 +155,7 @@
             </div>
         </div>
 
-        <div x-show="tab === 'quizzes'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" style="display: none;">
+        <div id="content-quizzes" class="tab-content hidden transition-all duration-300">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($quizzes as $quiz)
                     <div class="group bg-white rounded-[2.5rem] shadow-sm border-2 border-transparent hover:border-indigo-400 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex flex-col">
@@ -183,4 +188,51 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function switchTab(tabName) {
+            const btnGames = document.getElementById('btn-games');
+            const btnQuizzes = document.getElementById('btn-quizzes');
+            const contentGames = document.getElementById('content-games');
+            const contentQuizzes = document.getElementById('content-quizzes');
+
+            if (tabName === 'games') {
+                // Стили кнопок
+                btnGames.classList.add('bg-blue-600', 'text-white', 'shadow-lg');
+                btnGames.classList.remove('text-gray-500', 'hover:bg-white');
+                
+                btnQuizzes.classList.remove('bg-indigo-600', 'text-white', 'shadow-lg');
+                btnQuizzes.classList.add('text-gray-500', 'hover:bg-white');
+
+                // Отображение контента
+                contentGames.classList.remove('hidden');
+                contentQuizzes.classList.add('hidden');
+            } else {
+                // Стили кнопок
+                btnQuizzes.classList.add('bg-indigo-600', 'text-white', 'shadow-lg');
+                btnQuizzes.classList.remove('text-gray-500', 'hover:bg-white');
+                
+                btnGames.classList.remove('bg-blue-600', 'text-white', 'shadow-lg');
+                btnGames.classList.add('text-gray-500', 'hover:bg-white');
+
+                // Отображение контента
+                contentQuizzes.classList.remove('hidden');
+                contentGames.classList.add('hidden');
+            }
+        }
+    </script>
+
+    <style>
+        .hidden {
+            display: none !important;
+        }
+        /* Анимация появления контента */
+        .tab-content {
+            animation: tabFadeIn 0.3s ease-out forwards;
+        }
+        @keyframes tabFadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
 @endsection
