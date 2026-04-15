@@ -68,6 +68,40 @@ Route::get('/admin/users', function () {
     return view('admin.users', compact('users'));
 })->name('admin.users')->middleware('auth');
 
+
+// Страница прохождения теста для ученика
+Route::get('/tests/{id}', function ($id) {
+    // Получаем тест
+    $quiz = DB::table('quizzes')->where('id', $id)->first();
+    
+    if (!$quiz) {
+        abort(404);
+    }
+
+    // Получаем вопросы к этому тесту
+    $questions = DB::table('questions')->where('quiz_id', $id)->get();
+
+    return view('tests.show', compact('quiz', 'questions'));
+})->name('tests.show');
+
+// Обработка результатов теста (куда отправляются ответы)
+Route::post('/tests/{id}/submit', function (Request $request, $id) {
+    $questions = DB::table('questions')->where('quiz_id', $id)->get();
+    $score = 0;
+    $total = $questions->count();
+
+    foreach ($questions as $question) {
+        $inputName = 'question_' . $question->id;
+        if ($request->$inputName === $question->correct_option) {
+            $score++;
+        }
+    }
+
+    // Здесь можно сохранить результат в базу данных, если есть таблица результатов
+    // А пока просто вернем на страницу с результатом
+    return back()->with('test_result', "Ты ответил правильно на $score из $total вопросов!");
+})->name('tests.submit');
+
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/', function () {
