@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Models\User;
 
 
 Route::middleware('guest')->group(function () {
@@ -11,9 +12,68 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
+// 1. Главная страница админки: Список всех квизов и форма создания
+Route::get('/admin/quizzes', function () {
+    $quizzes = DB::table('quizzes')->latest()->get();
+    return view('admin.quizzes.index', compact('quizzes'));
+})->name('admin.quizzes');
+
+// 2. Создание квиза (папки для вопросов)
+Route::post('/admin/quizzes/store', function (Request $request) {
+    DB::table('quizzes')->insert([
+        'title' => $request->title,
+        'description' => $request->description,
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+    return back();
+});
+
+// 3. Управление вопросами конкретного квиза
+Route::get('/admin/quizzes/{id}/questions', function ($id) {
+    $quiz = DB::table('quizzes')->where('id', $id)->first();
+    $questions = DB::table('questions')->where('quiz_id', $id)->get();
+    return view('admin.quizzes.questions', compact('quiz', 'questions'));
+})->name('admin.quizzes.questions');
+
+// 4. Сохранение вопроса в конкретный квиз
+Route::post('/admin/quizzes/{id}/questions/store', function (Request $request, $id) {
+    DB::table('questions')->insert([
+        'quiz_id' => $id,
+        'question_text' => $request->question_text,
+        'option_a' => $request->option_a,
+        'option_b' => $request->option_b,
+        'option_c' => $request->option_c,
+        'option_d' => $request->option_d,
+        'correct_option' => $request->correct_option,
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+    return back();
+});
+
+Route::get('/admin/users', function () {
+    // Проверка: пускаем только админов
+    if (auth()->guest() || auth()->user()->role !== 'admin') {
+        abort(403, 'Доступ только для администраторов');
+    }
+
+    // Получаем всех пользователей из базы
+    $users = User::latest()->get();
+
+    return view('admin.users', compact('users'));
+})->name('admin.users')->middleware('auth');
+
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/', function () { return view('dashboard'); })->name('dashboard');
+    Route::get('/', function () {
+    $quizzes = DB::table('quizzes')->get(); // Получаем твои созданные тесты
+    return view('dashboard', compact('quizzes'));
+})->name('dashboard');
 });
 
 Route::get('/game2', function () {
